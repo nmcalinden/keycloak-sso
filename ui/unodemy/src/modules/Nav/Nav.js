@@ -1,9 +1,9 @@
 import React from "react";
 import { useKeycloak } from "@react-keycloak/web";
-import JWTClaimsTable from "../helpers/JWTClaimsTable";
+import JSONViewer from "../helpers/JSONViewer";
 
 const Nav = () => {
-    const { keycloak, initialized } = useKeycloak();
+    const { keycloak } = useKeycloak();
     console.log("Keycloak...", keycloak);
 
     return (
@@ -37,11 +37,7 @@ const Nav = () => {
                     </div>
                 </div>
                 <div className="login-details">
-                    {!!keycloak.authenticated ? (
-                        <JWTClaimsTable claims={keycloak.tokenParsed} />
-                    ) : (
-                        <p>Please login.</p>
-                    )}
+                    <JSONViewer jwt={keycloak.tokenParsed} />
                 </div>
             </div>
         </div>

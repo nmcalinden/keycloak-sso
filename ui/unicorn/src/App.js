@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes } from "react-router-dom";
 import Nav from "./modules/Nav/Nav";
 
 import { ReactKeycloakProvider } from "@react-keycloak/web";

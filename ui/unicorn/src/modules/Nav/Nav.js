@@ -1,9 +1,22 @@
 import React from "react";
 import { useKeycloak } from "@react-keycloak/web";
 import JSONViewer from "../helpers/JSONViewer";
+import AuthorizedFunction from "../helpers/AuthorizedFunction";
 
 const Nav = () => {
     const { keycloak } = useKeycloak();
+
+    const getNavContent = () => {
+        if (keycloak.authenticated) {
+            return AuthorizedFunction(["manager", "staff", "recruiter"]) ? (
+                <JSONViewer jwt={keycloak.tokenParsed} />
+            ) : (
+                <p>Uh-oh. Logged in user does not have required access.</p>
+            );
+        }
+
+        return <p>Please login.</p>;
+    };
 
     return (
         <div className="p-2">
@@ -35,9 +48,7 @@ const Nav = () => {
                         )}
                     </div>
                 </div>
-                <div className="login-details">
-                    <JSONViewer jwt={keycloak.tokenParsed} />
-                </div>
+                <div className="login-details">{getNavContent()}</div>
             </div>
         </div>
     );
